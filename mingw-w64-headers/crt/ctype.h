@@ -186,6 +186,10 @@ int __cdecl iswblank(wint_t _C);
 
 #ifndef MB_CUR_MAX
 #define MB_CUR_MAX ___mb_cur_max_func()
+#ifdef KINK_CRT
+int ___mb_cur_max_func(); // MSVCRT 2010+
+#define __mb_cur_max ___mb_cur_max_func()
+#else // KINK_CRT
 #ifndef __mb_cur_max
 #ifdef _MSVCRT_
   extern int __mb_cur_max;
@@ -196,6 +200,7 @@ int __cdecl iswblank(wint_t _C);
 #endif
 #endif
 #define ___mb_cur_max_func() (__mb_cur_max)
+#endif // KINK_CRT
 #endif
 
 #define __chvalidchk(a,b) (__PCTYPE_FUNC[(a)] & (b))

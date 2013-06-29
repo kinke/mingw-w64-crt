@@ -93,6 +93,10 @@ extern "C" {
 
 #ifndef MB_CUR_MAX
 #define MB_CUR_MAX ___mb_cur_max_func()
+#ifdef KINK_CRT
+int ___mb_cur_max_func(); // MSVCRT 2010+
+#define __mb_cur_max ___mb_cur_max_func()
+#else // KINK_CRT
 #ifndef __mb_cur_max
 #ifdef _MSVCRT_
   extern int __mb_cur_max;
@@ -103,6 +107,7 @@ extern "C" {
 #endif
 #endif
 #define ___mb_cur_max_func() (__mb_cur_max)
+#endif // KINK_CRT
 #endif
 
 #define __max(a,b) (((a) > (b)) ? (a) : (b))

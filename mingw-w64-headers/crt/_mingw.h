@@ -27,7 +27,7 @@
 # define __DECLSPEC_SUPPORTED
 # define __attribute__(x) /* nothing */
 #else /* __GNUC__ */
-# ifdef __declspec
+# if defined(__declspec) || defined(KINK_CRT)
 #  ifndef __MINGW_IMPORT
 /* Note the extern. This is needed to work around GCC's
 limitations in handling dllimport attribute.  */
@@ -678,14 +678,16 @@ const char *__mingw_get_crt_info (void);
 #ifndef MINGW_SDK_INIT
 #define MINGW_SDK_INIT
 
-@MINGW_HAS_SECURE_API@
+#define MINGW_HAS_SECURE_API
 
 #ifdef MINGW_HAS_SECURE_API
 #define __STDC_SECURE_LIB__ 200411L
 #define __GOT_SECURE_LIB__ __STDC_SECURE_LIB__
 #endif
 
+#ifndef KINK_CRT
 #include "sdks/_mingw_directx.h"
 #include "sdks/_mingw_ddk.h"
+#endif
 
 #endif /* MINGW_SDK_INIT */

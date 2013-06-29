@@ -13,8 +13,8 @@
 
 #if (defined (__GNUC__) && defined (__GNUC_MINOR__)) \
     || (defined(__clang__) && defined(__clang_major__))
-#if (__GNUC__ < 4  || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)) \
-    || (__clang_major__ >=3)
+#if !defined(KINK_CRT) && ((__GNUC__ < 4  || (__GNUC__ == 4 && __GNUC_MINOR__ < 6)) \
+    || (__clang_major__ >=3))
 #if !defined(_FLOAT_H___) && !defined(__FLOAT_H)
 #include_next <float.h>
 #endif

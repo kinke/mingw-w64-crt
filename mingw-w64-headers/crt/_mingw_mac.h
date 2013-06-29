@@ -62,9 +62,11 @@
 #endif
 
 /* Use alias for msvcr80 export of get/set_output_format.  */
+#ifndef KINK_CRT
 #ifndef __USE_MINGW_OUTPUT_FORMAT_EMU
 #define __USE_MINGW_OUTPUT_FORMAT_EMU 1
 #endif
+#endif // KINK_CRT
 
 /* Set VC specific compiler target macros.  */
 #if defined(__x86_64) && defined(_X86_)

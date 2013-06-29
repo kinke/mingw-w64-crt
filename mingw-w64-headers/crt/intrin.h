@@ -3,7 +3,7 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER.PD within this package.
  */
-#ifndef __INTRIN_H_
+#if !defined(__INTRIN_H_) && !defined(KINK_CRT)
 #define __INTRIN_H_
 #ifndef RC_INVOKED
 
