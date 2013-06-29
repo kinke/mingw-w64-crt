@@ -1,0 +1,45 @@
+From 1392a5d57dbd51a0ca87d713447061ea75f6b417 Mon Sep 17 00:00:00 2001
+From: Martin <noone@nowhere.com>
+Date: Sat, 29 Jun 2013 18:36:39 +0200
+Subject: [PATCH] Enable x87 floating-point (80 bits) support for Win64 Visual
+ Studio targets.
+
+---
+ lib/Basic/Targets.cpp      | 4 ++--
+ lib/CodeGen/TargetInfo.cpp | 5 +++++
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/lib/Basic/Targets.cpp b/lib/Basic/Targets.cpp
+index 4968938..f6ac502 100644
+--- a/lib/Basic/Targets.cpp
++++ b/lib/Basic/Targets.cpp
+@@ -3229,8 +3229,8 @@ class VisualStudioWindowsX86_64TargetInfo : public WindowsX86_64TargetInfo {
+ public:
+   VisualStudioWindowsX86_64TargetInfo(const std::string& triple)
+     : WindowsX86_64TargetInfo(triple) {
+-    LongDoubleWidth = LongDoubleAlign = 64;
+-    LongDoubleFormat = &llvm::APFloat::IEEEdouble;
++    //LongDoubleWidth = LongDoubleAlign = 64;
++    //LongDoubleFormat = &llvm::APFloat::IEEEdouble;
+   }
+   virtual void getTargetDefines(const LangOptions &Opts,
+                                 MacroBuilder &Builder) const {
+diff --git a/lib/CodeGen/TargetInfo.cpp b/lib/CodeGen/TargetInfo.cpp
+index 4fa0c3b..9fb00a5 100644
+--- a/lib/CodeGen/TargetInfo.cpp
++++ b/lib/CodeGen/TargetInfo.cpp
+@@ -2584,6 +2584,11 @@ ABIArgInfo WinX86_64ABIInfo::classify(QualType Ty, bool IsReturnType) const {
+   if (Ty->isPromotableIntegerType())
+     return ABIArgInfo::getExtend();
+ 
++  if (!IsReturnType &&                                        // regular function parameter
++      Ty->isRealFloatingType() && Size > 64 &&                // non-complex x87 type (80 bits)
++      getTarget().getTriple().getOS() == llvm::Triple::Win32) // Win64 Visual Studio target
++    return ABIArgInfo::getIndirect(0, /*ByVal=*/false);       // TODO: is that the right ByVal setting?
++
+   return ABIArgInfo::getDirect();
+ }
+ 
+-- 
+1.8.1.msysgit.1
+
