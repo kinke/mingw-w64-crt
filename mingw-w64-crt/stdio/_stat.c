@@ -116,5 +116,5 @@ stat(const char *_Filename,struct stat *_Stat)
 #endif
 
 /* Add __imp__fstat and __imp__stat symbols.  */
-int (*__MINGW_IMP_SYMBOL(stat))(const char *,struct stat *) = &stat;
+int (__cdecl *__MINGW_IMP_SYMBOL(stat))(const char *,struct stat *) = &stat;
 

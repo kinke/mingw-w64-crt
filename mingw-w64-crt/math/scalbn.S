@@ -35,7 +35,3 @@ __MINGW_USYMBOL(scalbn):
 	fstp	%st(1)
 	ret
 #endif
-
-.globl __MINGW_USYMBOL(scalbln)
-	.set	__MINGW_USYMBOL(scalbln),__MINGW_USYMBOL(scalbn)
-

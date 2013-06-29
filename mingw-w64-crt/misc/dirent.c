@@ -36,13 +36,6 @@
 static __inline DWORD _tGetFileAttributes (const _TCHAR * tPath)
 {
 #ifdef _UNICODE
-  /* GetFileAttributesW does not work on W9x, so convert to ANSI */
-  if (_osver & 0x8000)
-    {
-      char aPath [MAX_PATH];
-      WideCharToMultiByte (CP_ACP, 0, tPath, -1, aPath, MAX_PATH, NULL, NULL);
-      return GetFileAttributesA (aPath);
-    }
   return GetFileAttributesW (tPath);
 #else
   return GetFileAttributesA (tPath);

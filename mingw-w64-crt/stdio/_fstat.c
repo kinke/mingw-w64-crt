@@ -48,5 +48,5 @@ fstat(int _Desc,struct stat *_Stat)
 #endif
 
 /* Add __imp__fstat and __imp__stat symbols.  */
-int (*__MINGW_IMP_SYMBOL(fstat))(int, struct stat *) = &fstat;
+int (__cdecl *__MINGW_IMP_SYMBOL(fstat))(int, struct stat *) = &fstat;
 

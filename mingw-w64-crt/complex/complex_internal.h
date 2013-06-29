@@ -115,12 +115,6 @@
 #endif
 
 #define __FLT_RPT_DOMAIN(NAME, ARG1, ARG2, RSLT) \
-	errno = EDOM, \
-	__mingw_raise_matherr (_DOMAIN, __FLT_REPORT(NAME), (double) (ARG1), \
-			       (double) (ARG2), (double) (RSLT))
+	errno = EDOM
 #define __FLT_RPT_ERANGE(NAME, ARG1, ARG2, RSLT, OVL) \
-	errno = ERANGE, \
-        __mingw_raise_matherr (((OVL) ? _OVERFLOW : _UNDERFLOW), \
-			       __FLT_REPORT(NAME), (double) (ARG1), \
-                               (double) (ARG2), (double) (RSLT))
-
+	errno = ERANGE

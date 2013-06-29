@@ -16,7 +16,7 @@
 	   -1 + sqrt(2) / 2 <= x <= 1 - sqrt(2) / 2
 	   0.29 is a safe value.
 	 */
-limit:	.tfloat 0.29
+limit:	.double 0.29
 	/* Please note:	 we use a double value here.  Since 1.0 has
 	   an exact representation this does not effect the accuracy
 	   but it helps to optimize the code.  */
@@ -39,7 +39,7 @@ __MINGW_USYMBOL(log1pl):
 	jc	3f		// in case x is NaN or ±Inf
 4:
 	fabs
-	fldt	limit(%rip)
+	fldl	limit(%rip)
 	fcompp
 	fnstsw
 	sahf
@@ -74,7 +74,7 @@ __MINGW_USYMBOL(log1pl):
 	jc	3f		// in case x is NaN or ±Inf
 4:
 	fabs
-	fldt	limit
+	fldl	limit
 	fcompp
 	fnstsw
 	sahf

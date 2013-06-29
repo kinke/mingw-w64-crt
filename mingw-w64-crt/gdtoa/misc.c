@@ -59,7 +59,7 @@ static long dtoa_CS_init = 0;
    2 = initialized
    3 = deleted
 */
-static void dtoa_lock_cleanup (void)
+static void __cdecl dtoa_lock_cleanup (void)
 {
 	long last_CS_init = InterlockedExchange (&dtoa_CS_init,3);
 	if (2 == last_CS_init) {

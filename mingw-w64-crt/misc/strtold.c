@@ -4,7 +4,7 @@
  * No warranty is given; refer to the file DISCLAIMER.PD within this package.
  */
 
-#include "math/cephes_emath.h"
+#include "../math/cephes_emath.h"
 
 #if NE == 10
 /* 1.0E0 */
